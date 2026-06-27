@@ -27,3 +27,6 @@ Thumbs.db
 
 # Node modules (just in case)
 node_modules/
+
+storage.db
+./config
