@@ -103,3 +103,40 @@ func (s *Sqlite) GetStudents() ([]types.Student, error) {
 
 	return students, nil
 }
+
+func (s *Sqlite) DeleteStudent(id int64) (types.Student, error) {
+	stmt, err := s.Db.Prepare("SELECT * FROM Students WHERE id = ? LIMIT 1")
+	if err != nil {
+		return types.Student{}, err
+	}
+	defer stmt.Close()
+
+	var student types.Student
+
+	err = stmt.QueryRow(id).Scan(
+		&student.Id,
+		&student.Name,
+		&student.Age,
+		&student.Email,
+		&student.Enroll,
+	)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return types.Student{}, fmt.Errorf("no student found with id %d", id)
+		}
+		return types.Student{}, fmt.Errorf("query error: %w", err)
+	}
+
+	stmt2, err := s.Db.Prepare("DELETE FROM Students WHERE id = ?")
+	if err != nil {
+		return types.Student{}, err
+	}
+	defer stmt2.Close()
+
+	_, err = stmt2.Exec(id)
+	if err != nil {
+		return types.Student{}, fmt.Errorf("delete error: %w", err)
+	}
+
+	return student, nil
+}
