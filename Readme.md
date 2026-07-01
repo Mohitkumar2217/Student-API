@@ -154,7 +154,7 @@ If you find this repository helpful, consider giving it a ⭐ on GitHub.
 
 **Mohit Kumawat**
  
-* LinkedIn: https://www.linkedin.com/in/mohit-kumawat-458730265/
+* LinkedIn: [https://www.linkedin.com/in/mohit-kumawat-889202374/]
 
 ---
 
